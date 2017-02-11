@@ -19,7 +19,7 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the CukeHub API! You can use our API to access CukeHub API endpoints, which can get information on your Cucumber Test Results.
 
 We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
@@ -55,44 +55,44 @@ let api = kittn.authorize('meowmeowmeow');
 
 > Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+CukeHub uses API keys to allow access to the API. You can register a new Kittn API key at [CukeHub](https://cukehub.com).
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+CukeHub expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+`Authorization: <api_key>`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>api_key</code> with your personal API key.
 </aside>
 
-# Kittens
+# Cukes
 
-## Get All Kittens
+## Get All Cuke Scenarios
 
 ```ruby
-require 'kittn'
+require 'cukehub'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+api = CukeHub::APIClient.authorize!('<api_key>')
+api.cukes.get
 ```
 
 ```python
-import kittn
+import cukehub
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+api = cukehub.authorize('<api_key>')
+api.cukes.get()
 ```
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl "http://example.com/api/cukes"
+  -H "Authorization: <api_key>"
 ```
 
 ```javascript
-const kittn = require('kittn');
+const cukehub = require('cukehub');
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+let api = cukehub.authorize('<api_key>');
+let cukes = api.cukes.get();
 ```
 
 > The above command returns JSON structured like this:
@@ -133,7 +133,7 @@ available | true | If set to false, the result will include kittens that have al
 Remember — a happy kitten is an authenticated kitten!
 </aside>
 
-## Get a Specific Kitten
+## Get a Specific Cuke Scenario
 
 ```ruby
 require 'kittn'
