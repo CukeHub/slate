@@ -71,7 +71,7 @@ end
     name:   "As a User, I login to CukeHub",
     location: "feature/authentication.feature",
     tag: "@authentication",
-    status: PASSED,
+    status: "PASSED",
     machine: "rich_macbookpro",
     os: "OSX",
     runtime: 20,
