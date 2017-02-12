@@ -91,7 +91,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -103,8 +103,6 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -128,155 +126,126 @@
 
 <p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
 
-<h1 id="authentication">Authentication</h1>
+<h1 id="rubygem">RubyGem</h1>
 
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h2 id="hooks">Hooks</h2>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'httparty'</span>
+<span class="nb">require</span> <span class="s1">'os'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="k">if</span> <span class="no">OS</span><span class="p">.</span><span class="nf">mac?</span> <span class="k">then</span>
+  <span class="n">os</span> <span class="o">=</span> <span class="s2">"OSX"</span>
+<span class="k">elsif</span> <span class="no">OS</span><span class="p">.</span><span class="nf">linux?</span>
+  <span class="n">os</span> <span class="o">=</span> <span class="s2">"Linux"</span>
+<span class="k">elsif</span> <span class="no">OS</span><span class="p">.</span><span class="nf">doze?</span>
+  <span class="n">os</span> <span class="o">=</span> <span class="s2">"Win"</span>
+<span class="k">end</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<span class="no">Before</span> <span class="k">do</span>
+    <span class="vi">@start</span> <span class="o">=</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span>
+<span class="k">end</span>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="no">After</span> <span class="k">do</span> <span class="o">|</span><span class="n">scenario</span><span class="o">|</span>
+  <span class="no">IO</span><span class="p">.</span><span class="nf">popen</span><span class="p">(</span><span class="s2">"git symbolic-ref --short HEAD"</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">pipe</span><span class="o">|</span> <span class="nb">puts</span> <span class="vi">@git_branch</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">.</span><span class="nf">read</span> <span class="p">}</span>
+  <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="ss">api_key: </span><span class="vi">@cukehub_api_key</span><span class="p">,</span>
+    <span class="ss">name:   </span><span class="n">scenario</span><span class="p">.</span><span class="nf">name</span><span class="p">,</span>
+    <span class="ss">location: </span><span class="n">scenario</span><span class="p">.</span><span class="nf">location</span><span class="p">,</span>
+    <span class="ss">tag: </span><span class="n">scenario</span><span class="p">.</span><span class="nf">source_tag_names</span><span class="p">,</span>
+    <span class="ss">status: </span><span class="n">scenario</span><span class="p">.</span><span class="nf">status</span><span class="p">.</span><span class="nf">upcase</span><span class="p">,</span>
+    <span class="ss">machine: </span><span class="no">Socket</span><span class="p">.</span><span class="nf">gethostname</span><span class="p">,</span>
+    <span class="ss">os: </span><span class="n">os</span><span class="p">,</span>
+    <span class="ss">runtime: </span><span class="p">(</span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span> <span class="o">-</span> <span class="vi">@start</span><span class="p">),</span>
+    <span class="ss">domain: </span><span class="vi">@domain</span><span class="p">,</span>
+    <span class="ss">branch: </span><span class="vi">@git_branch</span><span class="p">.</span><span class="nf">chomp</span>
+  <span class="p">}</span>
+  <span class="n">params</span><span class="p">[</span><span class="ss">:browser</span><span class="p">]</span> <span class="o">=</span> <span class="vi">@browser</span><span class="p">.</span><span class="nf">browser</span><span class="p">.</span><span class="nf">upcase</span> <span class="k">unless</span> <span class="vi">@browser</span><span class="p">.</span><span class="nf">nil?</span>
+  <span class="n">params</span><span class="p">[</span><span class="ss">:exception</span><span class="p">]</span><span class="o">=</span><span class="n">scenario</span><span class="p">.</span><span class="nf">exception</span><span class="p">.</span><span class="nf">message</span> <span class="k">unless</span> <span class="n">scenario</span><span class="p">.</span><span class="nf">passed?</span>
+
+  <span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"https://cukehub.com/api/v1/results"</span><span class="p">,</span> <span class="ss">body: </span><span class="n">params</span><span class="p">)</span>
+<span class="k">end</span>   
+</code></pre><pre class="highlight shell"><code>  params <span class="o">=</span> <span class="o">{</span>
+    api_key: &lt;cukehub_api_key&gt;,
+    name:   <span class="s2">"As a User, I login to CukeHub"</span>,
+    location: <span class="s2">"feature/authentication.feature"</span>,
+    tag: <span class="s2">"@authentication"</span>,
+    status: PASSED,
+    machine: <span class="s2">"rich_macbookpro"</span>,
+    os: <span class="s2">"OSX"</span>,
+    runtime: 20,
+    domain: <span class="s2">"https://cukehub.com"</span>,
+    branch: <span class="s2">"user_authentication_branch"</span>
+    browser: <span class="s2">"CHROME"</span>
+  <span class="o">}</span>
+
+  HTTParty.post<span class="o">(</span><span class="s2">"https://cukehub.com/api/v1/results"</span>, body: params<span class="o">)</span>
 </code></pre>
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>CukeHub uses API keys to allow access to the API. You can register a new Kittn API key at <a href="https://cukehub.com">CukeHub</a>.</p>
-
-<p>CukeHub expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: &lt;api_key&gt;</code></p>
-
-<aside class="notice">
-You must replace <code>api_key</code> with your personal API key.
-</aside>
-
-<h1 id="cukes">Cukes</h1>
-
-<h2 id="get-all-cuke-scenarios">Get All Cuke Scenarios</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'cukehub'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">CukeHub</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'&lt;api_key&gt;'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">cukes</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">cukehub</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">cukehub</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'&lt;api_key&gt;'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">cukes</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/cukes"</span>
-  -H <span class="s2">"Authorization: &lt;api_key&gt;"</span>
-</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">cukehub</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'cukehub'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">cukehub</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'&lt;api_key&gt;'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">cukes</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">cukes</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
+<p>This endpoint captures all the Cukes from all the machines.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
+<p><code class="prettyprint">POST https://cukehub.com/api/v1/results</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>api_key:</td>
+<td>Stores Cucumber Scenarios and Runs for a specific App at CukeHub.</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>name:</td>
+<td>Stores the Cucumber Scenario Name.</td>
+</tr>
+<tr>
+<td>location:</td>
+<td>Stores the Cucumber Feature File Path.</td>
+</tr>
+<tr>
+<td>tag:</td>
+<td>Stores the Cucumebr Tag associated with the Cucumber Scenario.</td>
+</tr>
+<tr>
+<td>status:</td>
+<td>Stores the Cucumber Scenario Status at Runtime [PASSED, FAILED, PENDING]</td>
+</tr>
+<tr>
+<td>machine:</td>
+<td>Stores the Machine the Cucumber Scenario was executed on. [Socket.gethostname]</td>
+</tr>
+<tr>
+<td>os:</td>
+<td>Stores the Operating System the Cucumber Scenario was executed in. [OSX, LINUX, WINDOWS]</td>
+</tr>
+<tr>
+<td>runtime:</td>
+<td>Stores the Total Runtime it took for the Cucumber Scenario to complete.</td>
+</tr>
+<tr>
+<td>exception:</td>
+<td>If the param exists, Stores the Exception Error for a FAILED Cucumber Scenario.</td>
+</tr>
+<tr>
+<td>branch:</td>
+<td>If the param exists, Stores the git branch the Scenario ran on.</td>
+</tr>
+<tr>
+<td>domain:</td>
+<td>If the param exists, CukeHub stores the domain the Scenario ran against.  [ ex. @domain = staging.cukehub.com ]</td>
+</tr>
+<tr>
+<td>browser:</td>
+<td>If the param exists, CukeHub stores the brower the Scenario ran in. [ ex. @browser = Selenium::WebDriver.for :chrome ]</td>
 </tr>
 </tbody></table>
 
 <aside class="success">
 Remember — a happy kitten is an authenticated kitten!
 </aside>
-
-<h2 id="get-a-specific-cuke-scenario">Get a Specific Cuke Scenario</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-
-<h3 id="url-parameters">URL Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
 
           <h1 id="errors">Errors</h1>
 
@@ -341,8 +310,6 @@ Remember — a happy kitten is an authenticated kitten!
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
