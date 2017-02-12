@@ -55,7 +55,8 @@ After do |scenario|
     os: os,
     runtime: (Time.now - @start),
     domain: @domain,
-    branch: @git_branch.chomp
+    branch: @git_branch.chomp,
+    sha: @git_sha.chomp,
   }
   params[:browser] = @browser.browser.upcase unless @browser.nil?
   params[:exception]=scenario.exception.message unless scenario.passed?
@@ -82,10 +83,11 @@ status:    | Stores the Cucumber Scenario Status at Runtime [PASSED, FAILED, PEN
 machine:   | Stores the Machine the Cucumber Scenario was executed on. [Socket.gethostname]
 os:        | Stores the Operating System the Cucumber Scenario was executed in. [OSX, LINUX, WINDOWS]
 runtime:   | Stores the Total Runtime it took for the Cucumber Scenario to complete.
-exception: | If the param exists, Stores the Exception Error for a FAILED Cucumber Scenario.
-branch:    | If the param exists, Stores the git branch the Scenario ran on.
 domain:    | If the param exists, CukeHub stores the domain the Scenario ran against.  [ ex. @domain = staging.cukehub.com ] 
+branch:    | If the param exists, Stores the git branch the Scenario ran on.
+sha:       | If the param exists, Stores the git SHA the Scenario ran in.
 browser:   | If the param exists, CukeHub stores the brower the Scenario ran in. [ ex. @browser = Selenium::WebDriver.for :chrome ]
+exception: | If the param exists, Stores the Exception Error for a FAILED Cucumber Scenario.
 
 <aside class="success">
 Remember — a happy kitten is an authenticated kitten!
