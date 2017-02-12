@@ -4,8 +4,6 @@ title: API Reference
 language_tabs:
   - shell
   - ruby
-  - python
-  - javascript
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -25,165 +23,91 @@ We have language bindings in Shell, Ruby, and Python! You can view code examples
 
 This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
-# Authentication
 
-> To authorize, use this code:
+# RubyGem
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-CukeHub uses API keys to allow access to the API. You can register a new Kittn API key at [CukeHub](https://cukehub.com).
-
-CukeHub expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: <api_key>`
-
-<aside class="notice">
-You must replace <code>api_key</code> with your personal API key.
-</aside>
-
-# Cukes
-
-## Get All Cuke Scenarios
+## Hooks
 
 ```ruby
-require 'cukehub'
+require 'httparty'
+require 'os'
 
-api = CukeHub::APIClient.authorize!('<api_key>')
-api.cukes.get
-```
+if OS.mac? then
+  os = "OSX"
+elsif OS.linux?
+  os = "Linux"
+elsif OS.doze?
+  os = "Win"
+end
 
-```python
-import cukehub
+Before do
+    @start = Time.now
+end
 
-api = cukehub.authorize('<api_key>')
-api.cukes.get()
-```
-
-```shell
-curl "http://example.com/api/cukes"
-  -H "Authorization: <api_key>"
-```
-
-```javascript
-const cukehub = require('cukehub');
-
-let api = cukehub.authorize('<api_key>');
-let cukes = api.cukes.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+After do |scenario|
+  IO.popen("git symbolic-ref --short HEAD") {|pipe| puts @git_branch = pipe.read }
+  params = {
+    api_key: @cukehub_api_key,
+    name:   scenario.name,
+    location: scenario.location,
+    tag: scenario.source_tag_names,
+    status: scenario.status.upcase,
+    machine: Socket.gethostname,
+    os: os,
+    runtime: (Time.now - @start),
+    domain: @domain,
+    branch: @git_branch.chomp
   }
-]
+  params[:browser] = @browser.browser.upcase unless @browser.nil?
+  params[:exception]=scenario.exception.message unless scenario.passed?
+
+  HTTParty.post("https://cukehub.com/api/v1/results", body: params)
+end   
 ```
 
-This endpoint retrieves all kittens.
+```shell
+  params = {
+    api_key: <cukehub_api_key>,
+    name:   "As a User, I login to CukeHub",
+    location: "feature/authentication.feature",
+    tag: "@authentication",
+    status: PASSED,
+    machine: "rich_macbookpro",
+    os: "OSX",
+    runtime: 20,
+    domain: "https://cukehub.com",
+    branch: "user_authentication_branch"
+	browser: "CHROME"
+  }
+
+  HTTParty.post("https://cukehub.com/api/v1/results", body: params)
+```
+
+
+This endpoint captures all the Cukes from all the machines.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`POST https://cukehub.com/api/v1/results`
 
 ### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+Parameter  | Description
+---------  | -----------
+api_key:   | Stores Cucumber Scenarios and Runs for a specific App at CukeHub.
+name:      | Stores the Cucumber Scenario Name.
+location:  | Stores the Cucumber Feature File Path.
+tag:       | Stores the Cucumebr Tag associated with the Cucumber Scenario.
+status:    | Stores the Cucumber Scenario Status at Runtime [PASSED, FAILED, PENDING]
+machine:   | Stores the Machine the Cucumber Scenario was executed on. [Socket.gethostname]
+os:        | Stores the Operating System the Cucumber Scenario was executed in. [OSX, LINUX, WINDOWS]
+runtime:   | Stores the Total Runtime it took for the Cucumber Scenario to complete.
+exception: | If the param exists, Stores the Exception Error for a FAILED Cucumber Scenario.
+branch:    | If the param exists, Stores the git branch the Scenario ran on.
+domain:    | If the param exists, CukeHub stores the domain the Scenario ran against.  [ ex. @domain = staging.cukehub.com ] 
+browser:   | If the param exists, CukeHub stores the brower the Scenario ran in. [ ex. @browser = Selenium::WebDriver.for :chrome ]
 
 <aside class="success">
 Remember — a happy kitten is an authenticated kitten!
 </aside>
-
-## Get a Specific Cuke Scenario
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
 
