@@ -155,7 +155,8 @@
     <span class="ss">os: </span><span class="n">os</span><span class="p">,</span>
     <span class="ss">runtime: </span><span class="p">(</span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span> <span class="o">-</span> <span class="vi">@start</span><span class="p">),</span>
     <span class="ss">domain: </span><span class="vi">@domain</span><span class="p">,</span>
-    <span class="ss">branch: </span><span class="vi">@git_branch</span><span class="p">.</span><span class="nf">chomp</span>
+    <span class="ss">branch: </span><span class="vi">@git_branch</span><span class="p">.</span><span class="nf">chomp</span><span class="p">,</span>
+    <span class="ss">sha: </span><span class="vi">@git_sha</span><span class="p">.</span><span class="nf">chomp</span><span class="p">,</span>
   <span class="p">}</span>
   <span class="n">params</span><span class="p">[</span><span class="ss">:browser</span><span class="p">]</span> <span class="o">=</span> <span class="vi">@browser</span><span class="p">.</span><span class="nf">browser</span><span class="p">.</span><span class="nf">upcase</span> <span class="k">unless</span> <span class="vi">@browser</span><span class="p">.</span><span class="nf">nil?</span>
   <span class="n">params</span><span class="p">[</span><span class="ss">:exception</span><span class="p">]</span><span class="o">=</span><span class="n">scenario</span><span class="p">.</span><span class="nf">exception</span><span class="p">.</span><span class="nf">message</span> <span class="k">unless</span> <span class="n">scenario</span><span class="p">.</span><span class="nf">passed?</span>
@@ -210,20 +211,24 @@
 <td>Stores the Total Runtime it took for the Cucumber Scenario to complete.</td>
 </tr>
 <tr>
-<td>exception:</td>
-<td>If the param exists, Stores the Exception Error for a FAILED Cucumber Scenario.</td>
+<td>domain:</td>
+<td>If the param exists, CukeHub stores the domain the Scenario ran against.  [ ex. @domain = staging.cukehub.com ]</td>
 </tr>
 <tr>
 <td>branch:</td>
 <td>If the param exists, Stores the git branch the Scenario ran on.</td>
 </tr>
 <tr>
-<td>domain:</td>
-<td>If the param exists, CukeHub stores the domain the Scenario ran against.  [ ex. @domain = staging.cukehub.com ]</td>
+<td>sha:</td>
+<td>If the param exists, Stores the git SHA the Scenario ran in.</td>
 </tr>
 <tr>
 <td>browser:</td>
 <td>If the param exists, CukeHub stores the brower the Scenario ran in. [ ex. @browser = Selenium::WebDriver.for :chrome ]</td>
+</tr>
+<tr>
+<td>exception:</td>
+<td>If the param exists, Stores the Exception Error for a FAILED Cucumber Scenario.</td>
 </tr>
 </tbody></table>
 
