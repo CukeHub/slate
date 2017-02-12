@@ -2,7 +2,6 @@
 title: API Reference
 
 language_tabs:
-  - shell
   - ruby
 
 toc_footers:
@@ -64,25 +63,6 @@ After do |scenario|
   HTTParty.post("https://cukehub.com/api/v1/results", body: params)
 end   
 ```
-
-```shell
-  params = {
-    api_key: <cukehub_api_key>,
-    name:   "As a User, I login to CukeHub",
-    location: "feature/authentication.feature",
-    tag: "@authentication",
-    status: "PASSED",
-    machine: "rich_macbookpro",
-    os: "OSX",
-    runtime: 20,
-    domain: "https://cukehub.com",
-    branch: "user_authentication_branch"
-	browser: "CHROME"
-  }
-
-  HTTParty.post("https://cukehub.com/api/v1/results", body: params)
-```
-
 
 This endpoint captures all the Cukes from all the machines.
 
