@@ -15,14 +15,7 @@ search: true
 ---
 
 # Introduction
-
 Welcome to the CukeHub API! You can use our API to send all Cucumber Scenarios to the CukeHub API endpoints.  CukeHub allows you to audit and share all of your Automated Cucumber Test Results that may run from any machine with the CukeHub RubyGem and the CukeHub App API Key provided at cukehub.com.
-
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). 
-
-
-# CukeHub RubyGem
-The CukeHub Gem is available at [RubyGems.org](https://rubygems.org/gems/cukehub)
 
 # GetStarted
  Steps    | Description
@@ -34,6 +27,10 @@ The CukeHub Gem is available at [RubyGems.org](https://rubygems.org/gems/cukehub
 	5.    | `$ bundle install`
 	6.    | Run `$ cucumber` Tests
 	7.    | See Results at [cukehub.com/apps](https://cukehub.com/apps)
+	
+# CukeHub RubyGem
+The CukeHub Gem is available at [RubyGems.org](https://rubygems.org/gems/cukehub)
+
 
 ## Hooks
 
