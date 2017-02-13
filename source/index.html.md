@@ -16,11 +16,9 @@ search: true
 
 # Introduction
 
-Welcome to the CukeHub API! You can use our API to access CukeHub API endpoints, which can get information on your Cucumber Test Results.
+Welcome to the CukeHub API! You can use our API to send all Cucumber Scenarios to the CukeHub API endpoints.  CukeHub allows you to audit and share all of your Automated Cucumber Test Results that may run from any machine with the CukeHub RubyGem and the CukeHub App API Key provided at cukehub.com.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+This example API documentation page was created with [Slate](https://github.com/tripit/slate). 
 
 
 # RubyGem
@@ -65,11 +63,11 @@ After do |scenario|
 end   
 ```
 
-This endpoint captures all the Cukes from all the machines.
+The Custom CukeHub After Block sends all Scenario Cukes to a User's CukeHub App Account over SSL.
 
 ### HTTP Request
 
-`POST https://cukehub.com/api/v1/results`
+`HTTParty.post("https://cukehub.com/api/v1/results", body: params)`
 
 ### Query Parameters
 
@@ -90,6 +88,6 @@ browser:   | If the param exists, CukeHub stores the brower the Scenario ran in.
 exception: | If the param exists, Stores the Exception Error for a FAILED Cucumber Scenario.
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+Happy Testing!
 </aside>
 
