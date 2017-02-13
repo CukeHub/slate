@@ -119,11 +119,9 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the CukeHub API! You can use our API to access CukeHub API endpoints, which can get information on your Cucumber Test Results.</p>
+<p>Welcome to the CukeHub API! You can use our API to send all Cucumber Scenarios to the CukeHub API endpoints.  CukeHub allows you to audit and share all of your Automated Cucumber Test Results that may run from any machine with the CukeHub RubyGem and the CukeHub App API Key provided at cukehub.com.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
+<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. </p>
 
 <h1 id="rubygem">RubyGem</h1>
 
@@ -164,11 +162,11 @@
   <span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"https://cukehub.com/api/v1/results"</span><span class="p">,</span> <span class="ss">body: </span><span class="n">params</span><span class="p">)</span>
 <span class="k">end</span>   
 </code></pre>
-<p>This endpoint captures all the Cukes from all the machines.</p>
+<p>The Custom CukeHub After Block sends all Scenario Cukes to a User&rsquo;s CukeHub App Account over SSL.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://cukehub.com/api/v1/results</code></p>
+<p><code class="prettyprint">HTTParty.post(&quot;https://cukehub.com/api/v1/results&quot;, body: params)</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -233,7 +231,7 @@
 </tbody></table>
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+Happy Testing!
 </aside>
 
           <h1 id="errors">Errors</h1>
