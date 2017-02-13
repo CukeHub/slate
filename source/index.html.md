@@ -43,6 +43,7 @@ end
 
 After do |scenario|
   IO.popen("git symbolic-ref --short HEAD") {|pipe| puts @git_branch = pipe.read }
+  IO.popen("git rev-parse --verify HEAD") {|pipe| puts @git_sha = pipe.read }
   params = {
     api_key: @cukehub_api_key,
     name:   scenario.name,
@@ -69,7 +70,7 @@ The Custom CukeHub After Block sends all Scenario Cukes to a User's CukeHub App 
 
 `HTTParty.post("https://cukehub.com/api/v1/results", body: params)`
 
-### Query Parameters
+### Parameters
 
 Parameter  | Description
 ---------  | -----------
