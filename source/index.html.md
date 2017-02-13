@@ -45,7 +45,7 @@ The CukeHub Gem is available at [RubyGems.org](https://rubygems.org/gems/cukehub
 
  Gem      | Description
 --------- | -----------
-httparty  | Makes http fun again!
+httparty  | For sending Cucumber Scenarion Results to CukeHub.com
 os        | The OS gem captures the Operating System the Cuke is ran on.
 
 ## Hooks
@@ -54,7 +54,7 @@ The Gem has a custom Before and After [Hook](https://github.com/cucumber/cucumbe
 
  Block    | Description
 --------- | -----------
-Before    | Sets the Cuke Start Time.
+Before    | Sets the Scenario Start Time.
 After     | Captures all the Scenario params and sends them to CukeHub.com.
 ## Parameters
 
@@ -92,7 +92,7 @@ name:      | Stores the Cucumber Scenario Name.
 location:  | Stores the Cucumber Feature File Path.
 tag:       | Stores the Cucumebr Tag associated with the Cucumber Scenario.
 status:    | Stores the Cucumber Scenario Status at Runtime [PASSED, FAILED, PENDING]
-machine:   | Stores the Machine the Cucumber Scenario was executed on. [Socket.gethostname]
+machine:   | Stores the Machine the Cucumber Scenario was executed on.
 os:        | Stores the Operating System the Cucumber Scenario was executed in. [OSX, LINUX, WINDOWS]
 runtime:   | Stores the Total Runtime it took for the Cucumber Scenario to complete.
 domain:    | If the param exists, CukeHub stores the domain the Scenario ran against.  [ ex. @domain = staging.cukehub.com ] 
