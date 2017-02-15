@@ -215,11 +215,14 @@
 <span class="k">end</span>
 
 <span class="no">After</span> <span class="k">do</span> <span class="o">|</span><span class="n">scenario</span><span class="o">|</span>
+  <span class="n">ignored_lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Before hook"</span><span class="p">,</span> <span class="s2">"After hook"</span><span class="p">,</span> <span class="s2">"AfterStep hook"</span><span class="p">]</span>
+  <span class="vi">@steps</span> <span class="o">=</span> <span class="n">scenario</span><span class="p">.</span><span class="nf">test_steps</span><span class="p">.</span><span class="nf">map</span><span class="p">{</span><span class="o">|</span><span class="n">step</span><span class="o">|</span> <span class="n">step</span><span class="p">.</span><span class="nf">name</span> <span class="k">if</span> <span class="o">!</span><span class="n">ignored_lines</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">step</span><span class="p">.</span><span class="nf">name</span><span class="p">)</span> <span class="p">}.</span><span class="nf">compact</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
   <span class="no">IO</span><span class="p">.</span><span class="nf">popen</span><span class="p">(</span><span class="s2">"git symbolic-ref --short HEAD"</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">pipe</span><span class="o">|</span> <span class="nb">puts</span> <span class="vi">@git_branch</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">.</span><span class="nf">read</span> <span class="p">}</span>
   <span class="no">IO</span><span class="p">.</span><span class="nf">popen</span><span class="p">(</span><span class="s2">"git rev-parse --verify HEAD"</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">pipe</span><span class="o">|</span> <span class="nb">puts</span> <span class="vi">@git_sha</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">.</span><span class="nf">read</span> <span class="p">}</span>
   <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
     <span class="ss">api_key: </span><span class="vi">@cukehub_api_key</span><span class="p">,</span>
     <span class="ss">name:   </span><span class="n">scenario</span><span class="p">.</span><span class="nf">name</span><span class="p">,</span>
+    <span class="ss">steps: </span><span class="vi">@steps</span><span class="p">,</span>
     <span class="ss">location: </span><span class="n">scenario</span><span class="p">.</span><span class="nf">location</span><span class="p">,</span>
     <span class="ss">tag: </span><span class="n">scenario</span><span class="p">.</span><span class="nf">source_tag_names</span><span class="p">,</span>
     <span class="ss">status: </span><span class="n">scenario</span><span class="p">.</span><span class="nf">status</span><span class="p">.</span><span class="nf">upcase</span><span class="p">,</span>
@@ -249,6 +252,10 @@
 <tr>
 <td>name:</td>
 <td>Stores the Cucumber Scenario Name.</td>
+</tr>
+<tr>
+<td>steps:</td>
+<td>Stores the Cucumber Scenario Steps.</td>
 </tr>
 <tr>
 <td>location:</td>
@@ -302,6 +309,8 @@
 <aside class="success">
 Happy Testing!
 </aside></p>
+
+<h1 id="cukehub-api">CukeHub API</h1>
 
           <h1 id="errors">Errors</h1>
 
