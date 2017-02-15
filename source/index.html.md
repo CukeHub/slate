@@ -64,11 +64,14 @@ Before do
 end
 
 After do |scenario|
+  ignored_lines = ["Before hook", "After hook", "AfterStep hook"]
+  @steps = scenario.test_steps.map{|step| step.name if !ignored_lines.include?(step.name) }.compact.join("\n")
   IO.popen("git symbolic-ref --short HEAD") {|pipe| puts @git_branch = pipe.read }
   IO.popen("git rev-parse --verify HEAD") {|pipe| puts @git_sha = pipe.read }
   params = {
     api_key: @cukehub_api_key,
     name:   scenario.name,
+    steps: @steps,
     location: scenario.location,
     tag: scenario.source_tag_names,
     status: scenario.status.upcase,
@@ -89,6 +92,7 @@ Parameter  | Description
 ---------  | -----------
 api_key:   | Stores Cucumber Scenarios and Runs for a specific App at CukeHub.
 name:      | Stores the Cucumber Scenario Name.
+steps:     | Stores the Cucumber Scenario Steps.
 location:  | Stores the Cucumber Feature File Path.
 tag:       | Stores the Cucumebr Tag associated with the Cucumber Scenario.
 status:    | Stores the Cucumber Scenario Status at Runtime [PASSED, FAILED, PENDING]
@@ -109,3 +113,5 @@ exception: | If the param exists, Stores the Exception Error for a FAILED Cucumb
 Happy Testing!
 </aside>
 
+
+# CukeHub API
