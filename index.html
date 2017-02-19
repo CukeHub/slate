@@ -119,13 +119,17 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the CukeHub API! CukeHub allows you to anaylze and share your Automated Cucumber Test Results.  The CukeHub API captures any and all Cucumber Scenarios from any test server at anytime.  This allows you to scale your Automated Cucumber Test Suite.</p>
+<p>Welcome to the CukeHub API! </p>
+
+<p>CukeHub is the endpoint for all of your Cucumber Scenarios.  </p>
+
+<p>Scale, Analyze and Share your Cuke Results at CukeHub.</p>
 
 <h1 id="cukehub-api">CukeHub API</h1>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST (&quot;https://cukehub.com/api/v1/results&quot;, body: params)</code></p>
+<p><code class="prettyprint">POST https://cukehub.com/api/v1/results</code></p>
 
 <h2 id="parameters">Parameters</h2>
 
@@ -161,7 +165,7 @@
 </tr>
 <tr>
 <td><b>machine:</b></td>
-<td>Machine or Device the Cucumber Scenario was executed on.</td>
+<td>Machine or Device that executed the Cucumber Scenario.</td>
 </tr>
 <tr>
 <td><b>os:</b></td>
@@ -172,24 +176,24 @@
 <td>Total Runtime of the Cucumber Scenario.</td>
 </tr>
 <tr>
-<td><b>domain:</b></td>
-<td>The domain the Scenario ran against.  [ ex. @domain = staging.cukehub.com ]</td>
-</tr>
-<tr>
 <td><b>branch:</b></td>
-<td>The <b>Git Branch</b> the Scenario ran in.</td>
+<td>The <b>Git Branch</b> the Cucumber Scenario ran in.</td>
 </tr>
 <tr>
 <td><b>sha:</b></td>
-<td>The <b>Git SHA</b> the Scenario ran in.</td>
+<td>The <b>Git SHA</b> the Cucumber Scenario ran in.</td>
 </tr>
 <tr>
 <td><b>browser:</b></td>
-<td>The brower the Scenario ran in. [ ex. @browser = Selenium::WebDriver.for :chrome ]</td>
+<td>The brower the Scenario ran in for a Browser Integration Test.</td>
+</tr>
+<tr>
+<td><b>domain:</b></td>
+<td>The domain the Scenario ran against for a Browser Integration Test.</td>
 </tr>
 <tr>
 <td><b>exception:</b></td>
-<td>The Exception Error for a FAILED Cukes.</td>
+<td>The Exception Error for a FAILED Cuke.</td>
 </tr>
 </tbody></table>
 
@@ -199,7 +203,7 @@
 
 <span class="no">Before</span> <span class="k">do</span>
   <span class="vi">@cukehub_api_key</span> <span class="o">=</span> <span class="s1">'&lt;api_key&gt;'</span>
-  <span class="vi">@browser</span> <span class="o">=</span> <span class="o">&lt;</span><span class="s1">'Browser for Browser Integration Tests'</span><span class="o">&gt;</span>
+  <span class="vi">@browser</span> <span class="o">=</span> <span class="s1">'Browser for Browser Cukes'</span>
 <span class="k">end</span>
 
 
