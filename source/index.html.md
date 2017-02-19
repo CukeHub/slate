@@ -19,7 +19,7 @@ Welcome to the CukeHub API! CukeHub allows you to anaylze and share your Automat
 
 # CukeHub API
 ### HTTP Request
-`POST ("https://cukehub.com/api/v1/results", body: params)`
+`POST https://cukehub.com/api/v1/results`
 ## Parameters
 
 Parameter         | Description
