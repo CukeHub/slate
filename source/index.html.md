@@ -15,7 +15,11 @@ search: true
 ---
 
 # Introduction
-Welcome to the CukeHub API! CukeHub allows you to anaylze and share your Automated Cucumber Test Results.  The CukeHub API captures any and all Cucumber Scenarios from any test server at anytime.  This allows you to scale your Automated Cucumber Test Suite.
+Welcome to the CukeHub API! 
+
+CukeHub is the endpoint for all of your Cucumber Scenarios.  
+
+Scale, Analyze and Share your Cuke Results at CukeHub.
 
 # CukeHub API
 ### HTTP Request
@@ -30,14 +34,14 @@ Parameter         | Description
 <b>location:</b>  | Cucumber Feature File Path.
 <b>tag:</b>       | Cucumebr Tag(s) associated with the Cucumber Scenario.
 <b>status:</b>    | Cucumber Scenario Status at Runtime [PASSED, FAILED, PENDING]
-<b>machine:</b>   | Machine or Device the Cucumber Scenario was executed on.
+<b>machine:</b>   | Machine or Device that executed the Cucumber Scenario.
 <b>os:</b>        | Operating System the Cucumber Scenario was executed in. [OSX, LINUX, WINDOWS]
 <b>runtime:</b>   | Total Runtime of the Cucumber Scenario.
-<b>domain:</b>    | The domain the Scenario ran against.  [ ex. @domain = staging.cukehub.com ] 
-<b>branch:</b>    | The <b>Git Branch</b> the Scenario ran in.
-<b>sha:</b>       | The <b>Git SHA</b> the Scenario ran in.
-<b>browser:</b>   | The brower the Scenario ran in. [ ex. @browser = Selenium::WebDriver.for :chrome ]
-<b>exception:</b> | The Exception Error for a FAILED Cukes.
+<b>branch:</b>    | The <b>Git Branch</b> the Cucumber Scenario ran in.
+<b>sha:</b>       | The <b>Git SHA</b> the Cucumber Scenario ran in.
+<b>browser:</b>   | The brower the Scenario ran in for a Browser Integration Test.
+<b>domain:</b>    | The domain the Scenario ran against for a Browser Integration Test. 
+<b>exception:</b> | The Exception Error for a FAILED Cuke.
 
 # GetStarted with Ruby
 
@@ -47,7 +51,7 @@ require 'cukehub'
 
 Before do
   @cukehub_api_key = '<api_key>'
-  @browser = <'Browser for Browser Integration Tests'>
+  @browser = 'Browser for Browser Cukes'
 end
 
 
