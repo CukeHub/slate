@@ -65,7 +65,7 @@ end
 	5.    | `$ bundle install`
 	6.    | `$ cucumber`
 	7.    | See your Cucumber Test Results at [cukehub.com/apps](https://cukehub.com/apps).
-	8.    | Invite others to your App at CukeHub to see Test Results.
+	8.    | Invite others and Share Results.
 
 <aside class="success">
 Happy Testing!
