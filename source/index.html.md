@@ -51,7 +51,8 @@ require 'cukehub'
 
 Before do
   @cukehub_api_key = '<api_key>'
-  @browser = 'Browser for Browser Cukes'
+  #@browser = 'Set @browser in order to see Browser Results at CukeHub'
+  #@domain = 'Set @domain in order to see Test Domain at CukeHub'
 end
 
 
