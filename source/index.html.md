@@ -43,7 +43,7 @@ Parameter         | Description
 <b>domain:</b>    | The domain the Scenario ran against for a Browser Integration Test. 
 <b>exception:</b> | The Exception Error for a FAILED Cuke.
 
-# GetStarted with Ruby
+# Get Started with Ruby
 
 ``` ruby
 #features/support/env.rb
