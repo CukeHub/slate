@@ -123,7 +123,7 @@
 
 <p>CukeHub is the endpoint for all of your Cucumber Scenarios.  </p>
 
-<p>Scale, Analyze and Share your Cuke Results at CukeHub.</p>
+<p>Store and Share your Cuke Results at CukeHub.</p>
 
 <h1 id="cukehub-api">CukeHub API</h1>
 
@@ -177,11 +177,11 @@
 </tr>
 <tr>
 <td><b>branch:</b></td>
-<td>The <b>Git Branch</b> the Cucumber Scenario ran in.</td>
+<td>The git branch the Cucumber Scenario ran in.</td>
 </tr>
 <tr>
 <td><b>sha:</b></td>
-<td>The <b>Git SHA</b> the Cucumber Scenario ran in.</td>
+<td>The git SHA the Cucumber Scenario ran in.</td>
 </tr>
 <tr>
 <td><b>browser:</b></td>
@@ -217,40 +217,40 @@
 </thead><tbody>
 <tr>
 <td>1.</td>
-<td>Create a New App at <a href="https://cukehub.com/apps">cukehub.com/apps</a> for the Application you are testing with Cucumber.</td>
+<td>Install the <a href="https://rubygems.org/gems/cukehub">CukeHub</a> RubyGem or add <code class="prettyprint">gem &#39;cukehub&#39;</code> to your Gemfile</td>
 </tr>
 <tr>
 <td>2.</td>
-<td>Copy the API Key for the App.</td>
-</tr>
-<tr>
-<td>3.</td>
-<td>Paste <code class="prettyprint">@cukehub_api_key = &lt;api_key&gt;</code> into your features/support/env.rb file and <code class="prettyprint">require &#39;cukehub&#39;</code>.</td>
-</tr>
-<tr>
-<td>4.</td>
-<td>Add <code class="prettyprint">gem &#39;cukehub&#39;</code> to your Gemfile.</td>
-</tr>
-<tr>
-<td>5.</td>
 <td><code class="prettyprint">$ bundle install</code></td>
 </tr>
 <tr>
+<td>3.</td>
+<td>Create a New <b>App</b> at <a href="https://cukehub.com/apps">cukehub.com/apps</a>.</td>
+</tr>
+<tr>
+<td>4.</td>
+<td>Copy the API Key for the <b>App</b>.</td>
+</tr>
+<tr>
+<td>5.</td>
+<td>Paste <code class="prettyprint">@cukehub_api_key = &lt;api_key&gt;</code> into your features/support/env.rb file and <code class="prettyprint">require &#39;cukehub&#39;</code>.</td>
+</tr>
+<tr>
 <td>6.</td>
-<td><code class="prettyprint">$ cucumber</code></td>
+<td>Run Cukes <code class="prettyprint">$ cucumber</code></td>
 </tr>
 <tr>
 <td>7.</td>
-<td>See your Cucumber Test Results at <a href="https://cukehub.com/apps">cukehub.com/apps</a>.</td>
+<td>See your Cuke Results at <a href="https://cukehub.com/apps">cukehub.com/apps</a>.</td>
 </tr>
 <tr>
 <td>8.</td>
-<td>Invite others and Share Results.</td>
+<td>Invite your Team and Share Results.</td>
 </tr>
 </tbody></table>
 
 <aside class="success">
-Happy Testing!
+Happy Cuking!
 </aside>
 
           <h1 id="errors">Errors</h1>
