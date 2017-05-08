@@ -19,7 +19,7 @@ Welcome to the CukeHub API!
 
 CukeHub is the endpoint for all of your Cucumber Scenarios.  
 
-Scale, Analyze and Share your Cuke Results at CukeHub.
+Store and Share your Cuke Results at CukeHub.
 
 # CukeHub API
 ### HTTP Request
@@ -37,8 +37,8 @@ Parameter         | Description
 <b>machine:</b>   | Machine or Device that executed the Cucumber Scenario.
 <b>os:</b>        | Operating System the Cucumber Scenario was executed in. [OSX, LINUX, WINDOWS]
 <b>runtime:</b>   | Total Runtime of the Cucumber Scenario.
-<b>branch:</b>    | The <b>Git Branch</b> the Cucumber Scenario ran in.
-<b>sha:</b>       | The <b>Git SHA</b> the Cucumber Scenario ran in.
+<b>branch:</b>    | The git branch the Cucumber Scenario ran in.
+<b>sha:</b>       | The git SHA the Cucumber Scenario ran in.
 <b>browser:</b>   | The brower the Scenario ran in for a Browser Integration Test.
 <b>domain:</b>    | The domain the Scenario ran against for a Browser Integration Test. 
 <b>exception:</b> | The Exception Error for a FAILED Cuke.
@@ -59,17 +59,18 @@ end
 ```
  Step    | Description
 --------- | -----------
-    1.    | Create a New App at [cukehub.com/apps](https://cukehub.com/apps) for the Application you are testing with Cucumber.
-	2.    | Copy the API Key for the App.
-	3.    | Paste `@cukehub_api_key = <api_key>` into your features/support/env.rb file and `require 'cukehub'`.
-	4.	  | Add `gem 'cukehub'` to your Gemfile.
-	5.    | `$ bundle install`
-	6.    | `$ cucumber`
-	7.    | See your Cucumber Test Results at [cukehub.com/apps](https://cukehub.com/apps).
-	8.    | Invite others and Share Results.
+	1.	  | Install the [CukeHub](https://rubygems.org/gems/cukehub) RubyGem or add `gem 'cukehub'` to your Gemfile
+	2.    | `$ bundle install`
+    3.    | Create a New <b>App</b> at [cukehub.com/apps](https://cukehub.com/apps).
+	4.    | Copy the <b>api_key</b> for the <b>App</b>.
+	5.    | Add `require 'cukehub'` to your features/support/env.rb.
+	6.    | Paste `@cukehub_api_key = <api_key>` into your features/support/env.rb file <b>Before Hook</b>.
+	7.    | Run your Cukes`$ cucumber`
+	8.    | See your Cuke Results at [cukehub.com/apps](https://cukehub.com/apps).
+	9.    | Invite your Team and Share Results.
 
 <aside class="success">
-Happy Testing!
+Happy Cuking!
 </aside>
 
 
